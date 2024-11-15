@@ -1,8 +1,8 @@
 package stepDefinition;
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
+import pageObject.OfferPage;
 import utils.TestContextSetup;
 
 import java.util.Iterator;
@@ -20,8 +20,9 @@ public class OfferPagesStepDefinition {
     public void user_searched_for_shortname_in_offers_page(String ShortName) throws InterruptedException {
         switchToOffersPage();
         Thread.sleep(3000);
-        testContextSetup.driver.findElement(By.id("search-field")).sendKeys(ShortName);
-        offerPageProductName = testContextSetup.driver.findElement(By.xpath("//table[@class='table table-bordered']/tbody/tr[1]/td")).getText();
+        OfferPage offerPage = new OfferPage(testContextSetup.driver);
+        offerPage.searchItem(ShortName);
+        offerPageProductName = offerPage.getProductName();
         System.out.println(offerPageProductName + " is extracted from offers page");
     }
 
